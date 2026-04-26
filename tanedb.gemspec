@@ -19,4 +19,6 @@ Gem::Specification.new do |spec|
     "LICENSE"
   ]
   spec.require_paths = ["lib"]
+
+  spec.add_development_dependency "rspec"
 end
