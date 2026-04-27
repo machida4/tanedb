@@ -47,6 +47,10 @@ module Tanedb
       @disk.flush
     end
 
+    def page_count
+      @disk.page_count
+    end
+
     def close
       flush_all
       @disk.close

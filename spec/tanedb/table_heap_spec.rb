@@ -4,7 +4,7 @@ require "tmpdir"
 
 RSpec.describe Tanedb::TableHeap do
   let(:path) { File.join(Dir.tmpdir, "tanedb_heap_#{Process.pid}.db") }
-  subject(:heap) { described_class.new(path) }
+  subject(:heap) { described_class.open(path) }
 
   after do
     heap.close
@@ -21,7 +21,6 @@ RSpec.describe Tanedb::TableHeap do
 
   describe "複数ページへのあふれ" do
     it "ページが満杯になったら次のページに書き込む" do
-      # 1ページに収まらない量を挿入する
       records = 60.times.map { |i| "record_#{i.to_s.rjust(3, "0")}" }
       records.each { |r| heap.insert(r) }
       expect(heap.each_record.to_a).to eq(records)
@@ -34,7 +33,7 @@ RSpec.describe Tanedb::TableHeap do
       heap.insert("bob")
       heap.close
 
-      heap2 = described_class.new(path)
+      heap2 = described_class.open(path)
       expect(heap2.each_record.to_a).to eq(["alice", "bob"])
       heap2.close
     end
