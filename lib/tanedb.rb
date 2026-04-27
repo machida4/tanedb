@@ -3,6 +3,7 @@
 require_relative "tanedb/version"
 require_relative "tanedb/disk_manager"
 require_relative "tanedb/page"
+require_relative "tanedb/table_heap"
 
 module Tanedb
 end

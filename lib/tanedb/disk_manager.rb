@@ -35,11 +35,17 @@ module Tanedb
     end
 
     def flush
+      return if @file.closed?
+
       @file.flush
       @file.fsync
     end
 
     def close
+      return if @file.closed?
+
+      @file.flush
+      @file.fsync
       @file.close
     end
 
